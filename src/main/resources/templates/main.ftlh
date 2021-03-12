@@ -1,0 +1,30 @@
+<#import "parts/common.ftlh" as c>
+<#import "parts/login.ftlh" as l>
+<@c.page>
+    <div>
+        <@l.logout />
+    </div>
+    <div>
+        <form method="post">
+            <input type="text" name="text" placeholder="Введите">
+            <input type="text" name="tag" placeholder="Тэг">
+            <input type="hidden" name = "_csrf" value="${_csrf.token}" />
+            <button type="submit">Добавить</button>
+        </form>
+    </div>
+    <div>Cписок сообщений</div>
+    <form method="get" action="/main">
+        <input type="text" name="filter" value="${filter!}">
+        <button type="submit">Найти</button>
+    </form>
+<#list messages as message>
+        <div>
+            <b>${message.id}</b>
+            <span>${message.text}</span>
+            <i>${message.tag}</i>
+            <strong>${message.author}</strong>
+        </div>
+    <#else>
+    Нет сообщений
+</#list>
+</@c.page>
