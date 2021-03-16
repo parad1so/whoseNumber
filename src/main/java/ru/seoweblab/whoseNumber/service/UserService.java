@@ -13,6 +13,9 @@ public class UserService implements UserDetailsService {
     private UserRepo userRepo;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        if(userRepo.findByUsername(username) == null){
+            throw new UsernameNotFoundException("User not authorized.");
+        }
         return userRepo.findByUsername(username);
     }
 }

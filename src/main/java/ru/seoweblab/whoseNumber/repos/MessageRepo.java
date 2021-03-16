@@ -5,6 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import ru.seoweblab.whoseNumber.domain.Message;
 
+import java.math.BigInteger;
 import java.util.List;
 
 // This will be AUTO IMPLEMENTED by Spring into a Bean called userRepository
@@ -12,6 +13,6 @@ import java.util.List;
 
 public interface MessageRepo extends CrudRepository<Message, Integer> {
 
-    List<Message> findByTag(String tag);
+    List<Message> findByPhoneNumber(BigInteger phoneNumber);
 }
 

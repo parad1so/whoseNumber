@@ -1,7 +1,7 @@
 <#import "parts/common.ftlh" as c>
 <#import "parts/login.ftlh" as l>
 <@c.page>
-    Зарегистрируйтесь
-${message!}
-<@l.login "/registration" />
+    <div class="mb-1">Зарегистрируйтесь</div>
+${message?ifExists}
+<@l.login "/registration" true/>
 </@c.page>

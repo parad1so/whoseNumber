@@ -2,6 +2,6 @@
 <#import "parts/login.ftlh" as l>
 <@c.page>
     Войти
-    <@l.login "/login" />
-    <a href="/registration">Регистрация</a>
+    <@l.login "/login" false/>
+
 </@c.page>
