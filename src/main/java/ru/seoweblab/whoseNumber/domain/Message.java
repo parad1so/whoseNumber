@@ -1,8 +1,8 @@
 package ru.seoweblab.whoseNumber.domain;
 
-import org.springframework.data.repository.cdi.Eager;
 
 import javax.persistence.*;
+import java.math.BigInteger;
 
 @Entity
 public class Message {
@@ -11,7 +11,8 @@ public class Message {
     private Integer id;
 
     private String text;
-    private String tag;
+
+    private BigInteger phoneNumber;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
@@ -21,10 +22,10 @@ public class Message {
     public Message() {
     }
 
-    public Message(String text, String tag, User user) {
+    public Message(String text, BigInteger phoneNumber, User user) {
         this.author = user;
         this.text = text;
-        this.tag = tag;
+        this.phoneNumber = phoneNumber;
     }
 
     public Integer getId() {
@@ -43,12 +44,12 @@ public class Message {
         this.text = text;
     }
 
-    public String getTag() {
-        return tag;
+    public BigInteger getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setTag(String tag) {
-        this.tag = tag;
+    public void setPhoneNumber(BigInteger phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getAuthor() {

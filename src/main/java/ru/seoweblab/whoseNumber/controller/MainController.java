@@ -12,6 +12,7 @@ import ru.seoweblab.whoseNumber.domain.User;
 import ru.seoweblab.whoseNumber.repos.MessageRepo;
 
 
+import java.math.BigInteger;
 import java.util.Map;
 
 @Controller
@@ -20,17 +21,13 @@ public class MainController {
     @Autowired
     private MessageRepo messageRepo;
 
-    @GetMapping("/")
-    public String greeting(Map<String, Object> model) {
-        return "greeting";
-    }
 
-    @GetMapping("/main")
-    public String main(@RequestParam (required = false) String filter, Model model){
+    @GetMapping("/")
+    public String main(@RequestParam (required = false) BigInteger filter, Model model){
         Iterable<Message> messages =  messageRepo.findAll();
 
-        if(filter != null && !filter.isEmpty()){
-            messages = messageRepo.findByTag(filter);
+        if(filter != null){
+            messages = messageRepo.findByPhoneNumber(filter);
         }
         else {
             messages = messageRepo.findAll();
@@ -42,13 +39,14 @@ public class MainController {
         return "main";
     }
 
-    @PostMapping("/main")
+    @PostMapping("/")
     public String add(
             @AuthenticationPrincipal User user,
             @RequestParam String text,
-            @RequestParam String tag,
+            @RequestParam BigInteger phoneNumber,
             Map<String, Object> model){
-        Message message = new Message(text, tag, user);
+        Message message = new Message(text, phoneNumber, user);
+
 
         messageRepo.save(message);
 
